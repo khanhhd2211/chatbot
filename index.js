@@ -60,7 +60,7 @@ var express = require('express')
 var token = "EAAEmJVLT904BANWTCOXOUrZCmZC3R6sZCewbpQDBHmXFLuFyUA48wIzVZC0kPdc1TCtWsWPuBHTlhknB7jIHhmK8Yp5dO0bFZAl8GNCgrJX9ZADkLjqN5Mbm9ZAz2JVZCRhYLUxgOObM7KObLNxhv2ZCs5Bfkuoq9JWRSso7th6NIAXzA7EZAnXs08"
 
 async function checkDay() {
-  var gym = await daysAtGym.find()
+  var gym = await daysAtGym.find('daysAtGym')
   sendTextMessage(sender, `Bạn đã tập được ${gym} ngày`)
 }
 
