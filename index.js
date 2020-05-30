@@ -17,7 +17,7 @@ var express = require('express')
  })
  
  // for Facebook verification
- app.get('//webhook', function (req, res) {
+ app.get('/webhook/', function (req, res) {
      if (req.query['hub.verify_token'] === 'khanhchatbot') {
          res.send(req.query['hub.challenge'])
      }
