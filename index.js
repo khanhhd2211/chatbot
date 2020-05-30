@@ -41,16 +41,17 @@ var express = require('express')
           text = event.message.text.substring(0, 200)
           if (text === '/help') {
             sendTextMessage(sender,
-               '/hello\n/weatherToday\n/goodBye\n/DaysAtGym\n/addDaysAtGym + number'
+               '/hello\n/weathertoday\n/goodbye\n/gym\n/daysgym + number'
             )
           } else if (text === '/hello') {
             sendTextMessage(sender, 'Chào bạn! tôi là Kbot hân hạn được làm quen với bạn')
-          } else if (text === '/weatherToday') {
+          } else if (text === '/weathertoday') {
             sendTextMessage(sender, 'Tính năng này hiện tại chưa được hỗ trợ')
-          } else if (text === '/goodBye') {
+          } else if (text === '/goodbye') {
             sendTextMessage(sender, 'Tạm biệt :3')
-          } else if (text === '/DaysAtGym') {
-            sendTextMessage(sender, `Bạn đã tập được ${checkDay()} ngày`)
+          } else if (text === '/gym') {
+            var days = checkDay();
+            sendTextMessage(sender, `Bạn đã tập được ${days} ngày`)
           }
       }
   }
@@ -61,8 +62,7 @@ var token = "EAAEmJVLT904BANWTCOXOUrZCmZC3R6sZCewbpQDBHmXFLuFyUA48wIzVZC0kPdc1TC
 
 async function checkDay() {
   var { daysAtGym: days } = await daysAtGym.find()
-  console.log(days)
-  return days;
+  return days.daysAtGym;
 }
 
 function sendTextMessage(sender, text) {
