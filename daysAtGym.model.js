@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var DaysAtGymSchema = new mongoose.Schema({
-	daysAtGym: String
+	daysAtGym: Number
 })
 
 var DaysAtGym = mongoose.model('DaysAtGym', DaysAtGymSchema, 'day');
