@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
-var Schema = require('mongoose');
-var DaysAtGymSchema = new Schema({
+var DaysAtGymSchema = new mongoose.Schema({
 	daysAtGym: Number
 })
 
