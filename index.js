@@ -41,7 +41,7 @@ var express = require('express')
           text = event.message.text.substring(0, 200)
           if (text === '/help') {
             sendTextMessage(sender,
-               '/hello\n/weathertoday\n/goodbye\n/gym\n/update + number'
+               '/hello\n/weathertoday\n/goodbye\n/gym\n/up + number'
             )
           } else if (text === '/hello') {
             sendTextMessage(sender, 'Chào bạn! tôi là Kbot hân hạn được làm quen với bạn')
@@ -51,8 +51,8 @@ var express = require('express')
             sendTextMessage(sender, 'Tạm biệt :3')
           } else if (text === '/gym') {
             checkDay(sender);
-          } else if (text.split(' ')[0] === 'update') {
-            updateDay(sender, text.split(' ')[1]);
+          } else if (text.split('')[0] === '/up') {
+            updateDay(sender, text.split('')[1]);
           }
       }
   }
