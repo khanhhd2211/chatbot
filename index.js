@@ -62,7 +62,7 @@ var token = "EAAEmJVLT904BANWTCOXOUrZCmZC3R6sZCewbpQDBHmXFLuFyUA48wIzVZC0kPdc1TC
 async function checkDay() {
   var gym = await daysAtGym.find()
   var { daysAtGym: days } = gym;
-  sendTextMessage(sender, `Bạn đã tập được ${gym[0]} ngày`)
+  sendTextMessage(sender, `Bạn đã tập được ${gym[1]} ngày`)
 }
 
 function sendTextMessage(sender, text) {
