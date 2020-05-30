@@ -37,9 +37,7 @@ var express = require('express')
           text = event.message.text.substring(0, 200)
           if (text === '/help') {
             sendTextMessage(sender,
-               `/hello
-                /weatherToday
-                /goodBye`
+               '/hello\n/weatherToday\n/goodBye'
             )
           } else if (text === '/hello') {
             sendTextMessage(sender, 'Chào bạn! tôi là Kbot hân hạn được làm quen với bạn')
