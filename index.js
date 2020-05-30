@@ -11,6 +11,10 @@ var express = require('express')
  // Process application/json
  app.use(bodyParser.json())
  
+ //
+ var mongoose = require('mongoose');
+ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+ var daysAtGym = require('./daysAtGym.model');
  // Index route
  app.get('/', function (req, res) {
      res.send('Hello world, I am a chat bot')
@@ -37,7 +41,7 @@ var express = require('express')
           text = event.message.text.substring(0, 200)
           if (text === '/help') {
             sendTextMessage(sender,
-               '/hello\n/weatherToday\n/goodBye'
+               '/hello\n/weatherToday\n/goodBye\n/DaysAtGym\n/addDaysAtGym + number'
             )
           } else if (text === '/hello') {
             sendTextMessage(sender, 'Chào bạn! tôi là Kbot hân hạn được làm quen với bạn')
@@ -45,6 +49,8 @@ var express = require('express')
             sendTextMessage(sender, 'Tính năng này hiện tại chưa được hỗ trợ')
           } else if (text === '/goodBye') {
             sendTextMessage(sender, 'Tạm biệt :3')
+          } else if (text === '/DaysAtGym') {
+            sendTextMessage(sender, `Bạn đã tập được ${checkDay()} ngày`)
           }
       }
   }
@@ -52,6 +58,11 @@ var express = require('express')
 })
 
 var token = "EAAEmJVLT904BANWTCOXOUrZCmZC3R6sZCewbpQDBHmXFLuFyUA48wIzVZC0kPdc1TCtWsWPuBHTlhknB7jIHhmK8Yp5dO0bFZAl8GNCgrJX9ZADkLjqN5Mbm9ZAz2JVZCRhYLUxgOObM7KObLNxhv2ZCs5Bfkuoq9JWRSso7th6NIAXzA7EZAnXs08"
+
+async function checkDay() {
+  var { days } = await daysAtGym.find()
+  return days;
+}
 
 function sendTextMessage(sender, text) {
   messageData = {
