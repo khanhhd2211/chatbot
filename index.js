@@ -69,7 +69,7 @@ async function checkDay(sender) {
 async function updateDay(sender, days) {
   var gym = await daysAtGym.find()
   newdays = gym[0].daysAtGym + parseInt(days || '0')
-  await daysAtGym.updateOne({ id: '5ed26b84e7179a6b6365ac10' }, { daysAtGym: newdays })
+  await daysAtGym.updateOne({ _id: '5ed26b84e7179a6b6365ac10' }, { daysAtGym: newdays })
   sendTextMessage(sender, 'Đã cập nhật số ngày tập gym, bạn cứ tiếp tục cố gắng nhá <3' + newdays)
 }
 
