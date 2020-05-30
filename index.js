@@ -51,8 +51,8 @@ var express = require('express')
             sendTextMessage(sender, 'Tạm biệt :3')
           } else if (text === '/gym') {
             checkDay(sender);
-          } else if (text.split('')[0] === '/up') {
-            updateDay(sender, text.split('')[1]);
+          } else if (text.split(' ')[0] === '/up') {
+            updateDay(sender, text.split(' ')[1]);
           }
       }
   }
