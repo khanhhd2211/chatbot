@@ -45,7 +45,7 @@ var express = require('express')
             sendTextMessage(sender, 'Chào bạn! tôi là Kbot hân hạn được làm quen với bạn')
           } else if (text === '/weatherToday') {
             sendTextMessage(sender, 'Tính năng này hiện tại chưa được hỗ trợ')
-          } else if () {
+          } else if (text === '/goodBye') {
             sendTextMessage(sender, 'Tạm biệt :3')
           }
       }
