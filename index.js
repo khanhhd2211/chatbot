@@ -11,7 +11,7 @@ app.get('/', function(req, res) {
     res.send('Hi, i\'m a chatbot');
 })
 app.get('/webhook/', function(req, res) {
-    if (req.query['hub.verify_token'] === 'nhanvanchatbot') {
+    if (req.query['hub.verify_token'] === 'khanhchatbot') {
         res.send(req.query['hub.challenge']);
     }
     res.send('Wrong token');
