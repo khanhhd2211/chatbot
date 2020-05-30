@@ -1,4 +1,4 @@
-const APP_SECRET = 'you app_secret';
+const APP_SECRET = '835adfad5b3dcfdb256be78b1459d9f7';
 const VALIDATION_TOKEN = 'khanhchatbot';
 const PAGE_ACCESS_TOKEN = 'EAAEvpJTMNgkBABVBaEwc4VycQgZBpiwga84owz8TeEGG9ksnnpbWLnsvsg34wynmHJrM9KL5R2BNk4cGsirW7DdVAcpZCU13MfLUUqDZCXWP48tKudlvFaK6RZBkOYZA5bA47yQNeYXwUYij11yBZB1qC8i6mxr1LvQmQo5Sl2naKVTtZBhe2UG';
 
