@@ -41,7 +41,7 @@ var express = require('express')
           text = event.message.text.substring(0, 200)
           if (text === '/help') {
             sendTextMessage(sender,
-               '/hello\n/weathertoday\n/goodbye\n/gym\n/daysgym + number'
+               '/hello\n/weathertoday\n/goodbye\n/gym\n/update + number'
             )
           } else if (text === '/hello') {
             sendTextMessage(sender, 'Chào bạn! tôi là Kbot hân hạn được làm quen với bạn')
@@ -50,7 +50,9 @@ var express = require('express')
           } else if (text === '/goodbye') {
             sendTextMessage(sender, 'Tạm biệt :3')
           } else if (text === '/gym') {
-            checkDay();
+            checkDay(sender);
+          } else if (text.split(' ')[0] === 'update') {
+            updateDay(sender, text.split(' ')[1]);
           }
       }
   }
@@ -59,10 +61,15 @@ var express = require('express')
 
 var token = "EAAEmJVLT904BANWTCOXOUrZCmZC3R6sZCewbpQDBHmXFLuFyUA48wIzVZC0kPdc1TCtWsWPuBHTlhknB7jIHhmK8Yp5dO0bFZAl8GNCgrJX9ZADkLjqN5Mbm9ZAz2JVZCRhYLUxgOObM7KObLNxhv2ZCs5Bfkuoq9JWRSso7th6NIAXzA7EZAnXs08"
 
-async function checkDay() {
+async function checkDay(sender) {
   var gym = await daysAtGym.find()
-  var { daysAtGym: days } = gym;
-  sendTextMessage(sender, `Bạn đã tập được ${gym[0].daysAtGym} ngày`)
+  sendTextMessage(sender, `Bạn đã tập gym được ${gym[0].daysAtGym} ngày`)
+}
+
+async function updateDay(sender, days) {
+  var gym = await daysAtGym.find()
+  newdays = gym[0].daysAtGym + parseInt(days || '0')
+  sendTextMessage(sender, 'Đã cập nhật số ngày tập gym, bạn cứ tiếp tục cố gắng nhá <3' + newdays)
 }
 
 function sendTextMessage(sender, text) {
