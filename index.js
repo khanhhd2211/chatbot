@@ -61,6 +61,7 @@ var token = "EAAEmJVLT904BANWTCOXOUrZCmZC3R6sZCewbpQDBHmXFLuFyUA48wIzVZC0kPdc1TC
 
 async function checkDay() {
   var { daysAtGym: days } = await daysAtGym.find()
+  console.log(days)
   return days;
 }
 
