@@ -33,6 +33,17 @@ function sendText(sender, text) {
     let messageData = {text}
     request({
         url: "https://graph.facebook.com/v2.6/me/messages",
-        qs: {access_token: "EAAEvpJTMNgkBAFRxqM2nmIi4mrHsq6PW2xqwpqfQJHb08BkC4NN3baBAUcw8KS8PtiTEFiul4SZC2oyvPmZBBcqrGqdZAFdR2Mj83NZAWwvTj5jZCN6hlVwdEPoYxcAA3nqmpI20Wm5BU9GFVZC51Ik6hHNH3qX0tIxh1lHaC97y1eARVHZCQYT"}
+        qs: {access_token: "EAAEvpJTMNgkBAFRxqM2nmIi4mrHsq6PW2xqwpqfQJHb08BkC4NN3baBAUcw8KS8PtiTEFiul4SZC2oyvPmZBBcqrGqdZAFdR2Mj83NZAWwvTj5jZCN6hlVwdEPoYxcAA3nqmpI20Wm5BU9GFVZC51Ik6hHNH3qX0tIxh1lHaC97y1eARVHZCQYT"},
+        method: "POST",
+        json: {
+            recipient: {id: sender},
+            message: messageData
+        }, function(err, res) {
+            if (err) {
+                console.log('sending error')
+            } else if (res.body.error) {
+                console.log('response body error')
+            }
+        }
     })
 }
