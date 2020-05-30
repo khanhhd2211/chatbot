@@ -50,8 +50,7 @@ var express = require('express')
           } else if (text === '/goodbye') {
             sendTextMessage(sender, 'Tạm biệt :3')
           } else if (text === '/gym') {
-            var days = checkDay();
-            sendTextMessage(sender, `Bạn đã tập được ${days} ngày`)
+            checkDay();
           }
       }
   }
@@ -62,7 +61,7 @@ var token = "EAAEmJVLT904BANWTCOXOUrZCmZC3R6sZCewbpQDBHmXFLuFyUA48wIzVZC0kPdc1TC
 
 async function checkDay() {
   var gym = await daysAtGym.find()
-  return gym.daysAtGym;
+  sendTextMessage(sender, `Bạn đã tập được ${gym.daysAtGym} ngày`)
 }
 
 function sendTextMessage(sender, text) {
