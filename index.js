@@ -34,8 +34,20 @@ var express = require('express')
       event = req.body.entry[0].messaging[i]
       sender = event.sender.id
       if (event.message && event.message.text) {
-          text = event.message.text
-          sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+          text = event.message.text.substring(0, 200)
+          if (text === '/help') {
+            sendTextMessage(sender,
+               `/hello
+                /weatherToday
+                /goodBye`
+            )
+          } else if (text === '/hello') {
+            sendTextMessage(sender, 'Chào bạn! tôi là Kbot hân hạn được làm quen với bạn')
+          } else if (text === '/weatherToday') {
+            sendTextMessage(sender, 'Tính năng này hiện tại chưa được hỗ trợ')
+          } else if () {
+            sendTextMessage(sender, 'Tạm biệt :3')
+          }
       }
   }
   res.sendStatus(200)
