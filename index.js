@@ -1,49 +1,68 @@
-const express = require('express');
-const app = express();
+const APP_SECRET = 'you app_secret';
+const VALIDATION_TOKEN = 'khanhchatbot';
+const PAGE_ACCESS_TOKEN = 'EAAEvpJTMNgkBABVBaEwc4VycQgZBpiwga84owz8TeEGG9ksnnpbWLnsvsg34wynmHJrM9KL5R2BNk4cGsirW7DdVAcpZCU13MfLUUqDZCXWP48tKudlvFaK6RZBkOYZA5bA47yQNeYXwUYij11yBZB1qC8i6mxr1LvQmQo5Sl2naKVTtZBhe2UG';
 
-const PORT = process.env.PORT || 3000;
+var http = require('http');
+var bodyParser = require('body-parser');
+var express = require('express');
 
-app.listen(PORT, function() {
-    console.log('Running on port: ' + PORT)
-})
+var app = express();
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+var server = http.createServer(app);
+var request = require("request");
 
-app.get('/', function(req, res) {
-    res.send('Hi, i\'m a chatbot');
-})
-app.get('/webhook/', function(req, res) {
-    if (req.query['hub.verify_token'] === 'khanhchatbot') {
-        res.send(req.query['hub.challenge']);
-    }
-    res.send('Wrong token');
-})
-app.post('/webhook/', function(req, res) {
-    let messaging_events = req.body.entry[0].messaging_events
-    for (let i = 0; i < messaging_events.length; i++) {
-        let event = messaging_events[i];
-        let sender = event.sender.id;
-        if (event.message && event.message.text) {
-            let text = event.message.text;
-            sendText(sender, `Text echo ${text.substring(0, 100)}`)
+app.get('/', (req, res) => {
+  res.send("Home page. Server running okay.");
+});
+
+app.get('/webhook', function(req, res) { // Đây là path để validate tooken bên app facebook gửi qua
+  if (req.query['hub.verify_token'] === VALIDATION_TOKEN) {
+    res.send(req.query['hub.challenge']);
+  }
+  res.send('Error, wrong validation token');
+});
+
+app.post('/webhook', function(req, res) { // Phần sử lý tin nhắn của người dùng gửi đến
+  var entries = req.body.entry;
+  for (var entry of entries) {
+    var messaging = entry.messaging;
+    for (var message of messaging) {
+      var senderId = message.sender.id;
+      if (message.message) {
+        if (message.message.text) {
+          var text = message.message.text;
+          sendMessage(senderId, "Hello!! I'm a bot. Your message: " + text);
         }
+      }
     }
-    res.sendStatus(200)
-})
+  }
+  res.status(200).send("OK");
+});
 
-function sendText(sender, text) {
-    let messageData = {text}
-    request({
-        url: "https://graph.facebook.com/v2.6/me/messages",
-        qs: {access_token: "EAAEvpJTMNgkBAFRxqM2nmIi4mrHsq6PW2xqwpqfQJHb08BkC4NN3baBAUcw8KS8PtiTEFiul4SZC2oyvPmZBBcqrGqdZAFdR2Mj83NZAWwvTj5jZCN6hlVwdEPoYxcAA3nqmpI20Wm5BU9GFVZC51Ik6hHNH3qX0tIxh1lHaC97y1eARVHZCQYT"},
-        method: "POST",
-        json: {
-            recipient: {id: sender},
-            message: messageData
-        }, function(err, res) {
-            if (err) {
-                console.log('sending error')
-            } else if (res.body.error) {
-                console.log('response body error')
-            }
-        }
-    })
+// Đây là function dùng api của facebook để gửi tin nhắn
+function sendMessage(senderId, message) {
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {
+      access_token: PAGE_ACCESS_TOKEN,
+    },
+    method: 'POST',
+    json: {
+      recipient: {
+        id: senderId
+      },
+      message: {
+        text: message
+      },
+    }
+  });
 }
+
+app.set('port', process.env.PORT || 5000);
+app.set('ip', process.env.IP || "0.0.0.0");
+
+server.listen(app.get('port'), app.get('ip'), function() {
+  console.log("Chat bot server listening at %s:%d ", app.get('ip'), app.get('port'));
+});
