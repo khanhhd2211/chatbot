@@ -40,7 +40,7 @@ var express = require('express')
       if (event.message && event.message.text) {
           text = event.message.text.substring(0, 200)
           if (text === '/help') {
-            sendTextMessage(sender,'/hello\n/weather + day + location,country\n/goodbye\n/gym\n/up + number')
+            sendTextMessage(sender,'/hello\n/weather + location,country + day\n/goodbye\n/gym\n/up + number')
           } else if (text === '/hello') {
             sendTextMessage(sender, 'Chào bạn! tôi là Kbot hân hạn được làm quen với bạn')
           } else if (text === '/weather') {
@@ -52,10 +52,10 @@ var express = require('express')
           } else if (text.split(' ')[0] === '/up') {
             updateDay(sender, text.split(' ')[1]);
           } else if (text.split(' ')[0] === '/weather') {
-            if (!text.split(' ')[1]) {
-              forecasts(sender, 0, text.split(' ')[2])
+            if (!text.split(' ')[2]) {
+              forecasts(sender, 0, text.split(' ')[1])
             } else {
-              forecasts(sender, parseInt(text.split(' ')[1]), text.split(' ')[2])
+              forecasts(sender, parseInt(text.split(' ')[2]), text.split(' ')[1])
             }
           }
       }
