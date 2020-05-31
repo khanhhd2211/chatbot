@@ -87,13 +87,10 @@ function forecasts(sender, day, locat) {
   }, function (err, res, body) {
       let searchForecasts = JSON.parse(body) 
       let data = searchForecasts.forecasts[day]
-      let date = '';
-      for (let i = 0; i < 3; i++) {
-        date += Date(data.date).split(' ')[i] + ' ' 
-      }
+      var date = new Date(data.date*1000 + 7*3600000);
       sendTextMessage(
         sender, 
-        `Vị Trí: ${searchForecasts.location.city}, ${searchForecasts.location.country}\nDate: ${date}\nTrạng thái: ${data.text}\nNhiệt độ: ${data.low}-${data.high}`
+        `Vị Trí: ${searchForecasts.location.city}, ${searchForecasts.location.country}\nDate: ${date.toDateString()}\nTrạng thái: ${data.text}\nNhiệt độ: ${data.low}-${data.high}`
       )
   })
 }
